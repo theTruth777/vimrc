@@ -13,12 +13,18 @@ filetype plugin indent on    " required
 Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'Townk/vim-autoclose'
+
 
 " For python development
 Plugin 'nvie/vim-flake8'
 
-" enable lines
+
+" enable lines and mark active line
 set nu
+set laststatus=2
+set cursorline
+
 
 " Set the encoding
 set encoding=utf-8
@@ -37,9 +43,35 @@ set softtabstop=4
 set shiftwidth=4        " number of spaces to use for auto indent
 set autoindent          " copy indent from current line when starting a new line
 
+
 " make backspaces more powerfull
 set backspace=indent,eol,start
 
+
 " Press [F5] to execute current python script
 imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
+
+
+"Themes
+Plugin 'AlessandroYorba/Alduin'
+colorscheme alduin
+
+
+" Various settings
+set nobackup
+set noswapfile
+set history=1000
+set undolevels=10000
+set wrap
+set mouse=a
+
+
+" Make Sure that Vim returns to the same line when we reopen a file
+augroup line_return
+    au!
+    au BufReadPost *
+                \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                \ execute 'normal! g`"zvzz' |
+                \ endif
+augroup END
 
