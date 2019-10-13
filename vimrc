@@ -75,3 +75,18 @@ augroup line_return
                 \ endif
 augroup END
 
+" For better git integration
+Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+let g:gitgutter_override_sign_column_highlight = 1
+highlight SignColumn guibg=bg
+highlight SignColumn ctermbg=bg
+
+set updatetime=250
+
+
+
