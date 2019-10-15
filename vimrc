@@ -15,6 +15,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'Townk/vim-autoclose'
 
+" FZF Plugin (make sure that FZF is installed on the system)
+Plugin 'junegunn/fzf.vim'
+" If installed using git
+set rtp+=~/.fzf
+
 
 " For python development
 Plugin 'nvie/vim-flake8'
