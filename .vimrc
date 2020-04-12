@@ -10,8 +10,9 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " custom plugins for file explorer, autocomplete etc.
-Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'Townk/vim-autoclose'
 
@@ -20,31 +21,32 @@ Plugin 'junegunn/fzf.vim'
 " If installed using git
 set rtp+=~/.fzf
 
+let g:NERDTreeGitStatusWithFlags = 1
 
-" For python development
-Plugin 'nvie/vim-flake8'
+" coc
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" For Rust development
-Plugin 'rust-lang/rust.vim'
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 let g:autofmt_autosave = 1
-
-
-" For cpp development
-Plugin 'xavierd/clang_complete'
-" path to directory where library can be found
-let g:clang_library_path='/usr/lib/llvm-6.0/lib/'
-" path directly to the library file
-let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
 
 " enable lines and mark active line
 set nu
 set laststatus=2
 set cursorline
 
-
 " Set the encoding
 set encoding=utf-8
-
 
 " configure expanding of tabs for various file types
 au BufRead,BufNewFile *.py set expandtab
@@ -59,10 +61,8 @@ set softtabstop=4
 set shiftwidth=4        " number of spaces to use for auto indent
 set autoindent          " copy indent from current line when starting a new line
 
-
 " make backspaces more powerfull
 set backspace=indent,eol,start
-
 
 " Press [F5] to execute current python script
 imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
@@ -70,6 +70,8 @@ imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
 " Press [F5] to execute cargo run
 imap <F5> <Esc>:w<CR>:!clear;cargo run<CR>
 
+" Press [F5] to execute make
+imap <F5> <Esc>:w<CR>:!clear;make<CR>
 
 "Themes
 Plugin 'AlessandroYorba/Alduin'
@@ -128,6 +130,7 @@ highlight SignColumn ctermbg=bg
 set updatetime=250
 
 " NerdTree settings
-let NERDTreeShowHidden=1
+" let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.o$']
 
 set undofile
